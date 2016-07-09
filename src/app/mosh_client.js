@@ -183,6 +183,7 @@ function onConnectClick(e) {
         'mosh_window.html',
         {
           'id': id,
+          'frame': 'none',
         },
         function(createdWindow) {
           bg.state.windows[id] = createdWindow;

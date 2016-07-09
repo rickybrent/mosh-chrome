@@ -31,6 +31,22 @@ function onClosed() {
   delete window.state.windows[appWindow.id];
 }
 
+function windowButtons() {
+    var w = chrome.app.window.current(),
+        max = document.querySelector('#button-max');
+    document.querySelector('#button-close').onclick = function(){ w.close(); };
+    document.querySelector('#button-min').onclick = function(){ w.minimize(); };
+    max.onclick = function(){
+        if (w.isMaximized()) {
+            w.restore();
+        } else {
+            w.maximize();
+        }
+    };
+    chrome.app.window.onRestored.addListener(function(){ max.setAttribute("class", "button"); });
+    chrome.app.window.onMaximized.addListener(function(){ max.setAttribute("class", "button button-restore"); });
+}
+
 function execMosh() {
   var terminal = new hterm.Terminal('mosh');
   terminal.decorate(document.querySelector('#terminal'));
@@ -39,6 +55,7 @@ function execMosh() {
     terminal.setCursorVisible(true);
     terminal.runCommandClass(mosh.CommandInstance, window.args);
   };
+  windowButtons();
 
   // Don't exit fullscreen with ESC.
   terminal.document_.onkeyup = function(e) {

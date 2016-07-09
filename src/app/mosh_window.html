@@ -35,9 +35,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       width: 100%;
       height: 100%;
     }
+    #titlebar {
+      width: 100%;
+      height: 32px;
+      -webkit-app-region: drag;
+      position:fixed;top:0px;
+	  z-index: 1;
+    }
+    #titlebar .button {
+      width: 32px;
+      height: 32px;
+      float: right;
+      background:black url(window_buttons.png) 0 0;
+      -webkit-app-region: no-drag;
+    }
+    #titlebar .button#button-max {
+      background-position: -32px 0px;
+    }
+    #titlebar .button#button-max.button-restore {
+      background-position: -64px 0px;
+	}
+    #titlebar .button#button-close {
+      background-position: -96px 0px;
+    }
   </style>
 </head>
 <body>
+  <div id="titlebar">
+    <div class="button" id="button-close"></div>
+    <div class="button" id="button-max"></div>
+    <div class="button" id="button-min"></div>
+  </div>
   <div id="terminal"></div>
 </body>
 </html>
